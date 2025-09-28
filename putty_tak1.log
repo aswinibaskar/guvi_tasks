@@ -1,0 +1,111 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2025.09.28 11:24:46 =~=~=~=~=~=~=~=~=~=~=~=
+[ec2-user@ip-10-0-0-52 ~]$ whoami
+ec2-user
+[ec2-user@ip-10-0-0-52 ~]$ ls
+[ec2-user@ip-10-0-0-52 ~]$ mkdir my_folder
+[ec2-user@ip-10-0-0-52 ~]$ cd my_folder
+[ec2-user@ip-10-0-0-52 my_folder]$ touch my_file.txt
+[ec2-user@ip-10-0-0-52 my_folder]$ ls
+my_file.txt
+[ec2-user@ip-10-0-0-52 my_folder]$ cd my_file.txt
+-bash: cd: my_file.txt: Not a directory
+[ec2-user@ip-10-0-0-52 my_folder]$ cat >my_fi my_file.txt
+this is my file
+[ec2-user@ip-10-0-0-52 my_folder]$ ls
+my_file.txt
+[ec2-user@ip-10-0-0-52 my_folder]$ cat my_file.txt
+this is my file
+[ec2-user@ip-10-0-0-52 my_folder]$ touch another_file.txt
+[ec2-user@ip-10-0-0-52 my_folder]$ cd > another_file.txt
+[ec2-user@ip-10-0-0-52 ~]$ catcd my _folder
+[ec2-user@ip-10-0-0-52 my_folder]$ cat > another _file.txt
+this m is , my anothr   er fike  k le
+[ec2-user@ip-10-0-0-52 my_folder]$ cat another_file.txt
+this is my another file
+[ec2-user@ip-10-0-0-52 my_folder]$ cat another_file.txt >> my_file.txt
+[ec2-user@ip-10-0-0-52 my_folder]$ cat my_file.xtxtxt
+this is my file
+this is my another file
+[ec2-user@ip-10-0-0-52 my_folder]$ ldds
+another_file.txt  my_file.txt
+[ec2-user@ip-10-0-0-52 my_folder]$ cd
+[ec2-user@ip-10-0-0-52 ~]$ ls
+my_folder
+[ec2-user@ip-10-0-0-52 ~]$ ls -l
+total 0
+drwxr-xr-x. 2 ec2-user ec2-user 49 Sep 28 05:59 my_folder
+[ec2-user@ip-10-0-0-52 ~]$ cd my_folder
+[ec2-user@ip-10-0-0-52 my_folder]$ ls -l
+total 8
+-rw-r--r--. 1 ec2-user ec2-user 24 Sep 28 06:01 another_file.txt
+-rw-r--r--. 1 ec2-user ec2-user 40 Sep 28 06:02 my_file.txt
+[ec2-user@ip-10-0-0-52 my_folder]$ cleARar
+[ec2-user@ip-10-0-0-52 my_folder]$ cd
+[ec2-user@ip-10-0-0-52 ~]$ touch file1.txt
+[ec2-user@ip-10-0-0-52 ~]$ ls
+file1.txt  my_folder
+[ec2-user@ip-10-0-0-52 ~]$ lstouch file1.txt.txt2.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file2.txt.txt3.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file3.txt.txt4.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file4.txt.txt5.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file5.txt.txt6.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file6.txt.txt7.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file7.txt.txt8.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file8.txttouch file8.txt.txt9.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file9.txt.txt1.txt0.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file10.txt.txt1.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file11.txt0.txt.txt2.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file12.txt.txt3.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file13.txt.txt4.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file14.txt.txt5.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file15.txt.txt6.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file16.txt.txt7.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file17.txt.txt8.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file18.txt.txt9.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch file19.txt.txt.txt2.txt0.txt
+[ec2-user@ip-10-0-0-52 ~]$ ls
+file1.txt   file11.txt  file13.txt  file15.txt  file17.txt  file19.txt  file20.txt  file4.txt  file6.txt  file8.txt  my_folder
+file10.txt  file12.txt  file14.txt  file16.txt  file18.txt  file2.txt   file3.txt   file5.txt  file7.txt  file9.txt
+[ec2-user@ip-10-0-0-52 ~]$ login as: ec2-user
+Authenticating with public key "GUVI-TASK-KEY"
+   ,     #_
+   ~\_  ####_        Amazon Linux 2023
+  ~~  \_#####\
+  ~~     \###|
+  ~~       \#/ ___   https://aws.amazon.com/linux/amazon-linux-2023
+   ~~       V~' '->
+    ~~~         /
+      ~~._.   _/
+         _/ _/
+       _/m/'
+Last login: Sun Sep 28 05:48:42 2025 from 103.78.166.121
+[ec2-user@ip-10-0-0-52 ~]$ ls
+file1.txt   file11.txt  file13.txt  file15.txt  file17.txt  file19.txt  file20.txt  file4.txt  file6.txt  file8.txt  my_folder
+file10.txt  file12.txt  file14.txt  file16.txt  file18.txt  file2.txt   file3.txt   file5.txt  file7.txt  file9.txt
+[ec2-user@ip-10-0-0-52 ~]$ mv file1.txt file1.yml
+[ec2-user@ip-10-0-0-52 ~]$ ls
+file1.yml   file11.txt  file13.txt  file15.txt  file17.txt  file19.txt  file20.txt  file4.txt  file6.txt  file8.txt  my_folder
+file10.txt  file12.txt  file14.txt  file16.txt  file18.txt  file2.txt   file3.txt   file5.txt  file7.txt  file9.txt
+[ec2-user@ip-10-0-0-52 ~]$ lsmv file1.txt file1.yml2.yml2.yml
+[ec2-user@ip-10-0-0-52 ~]$ mv file2.txt file2.yml.yml3.ymle3
+[ec2-user@ip-10-0-0-52 ~]$ mv file3.txt file3.yml.yml4.yml4
+[ec2-user@ip-10-0-0-52 ~]$ mv file4.txt file4.yml.yml5.yml5
+[ec2-user@ip-10-0-0-52 ~]$ ls
+file1.yml   file11.txt  file13.txt  file15.txt  file17.txt  file19.txt  file20.txt  file4.yml  file6.txt  file8.txt  my_folder
+file10.txt  file12.txt  file14.txt  file16.txt  file18.txt  file2.yml   file3.yml   file5.yml  file7.txt  file9.txt
+[ec2-user@ip-10-0-0-52 ~]$ ls -l| | head -5
+total 0
+-rw-r--r--. 1 ec2-user ec2-user  0 Sep 28 06:11 file1.yml
+-rw-r--r--. 1 ec2-user ec2-user  0 Sep 28 06:12 file10.txt
+-rw-r--r--. 1 ec2-user ec2-user  0 Sep 28 06:12 file11.txt
+-rw-r--r--. 1 ec2-user ec2-user  0 Sep 28 06:13 file12.txt
+[ec2-user@ip-10-0-0-52 ~]$ ls -l | head -56
+total 0
+-rw-r--r--. 1 ec2-user ec2-user  0 Sep 28 06:11 file1.yml
+-rw-r--r--. 1 ec2-user ec2-user  0 Sep 28 06:12 file10.txt
+-rw-r--r--. 1 ec2-user ec2-user  0 Sep 28 06:12 file11.txt
+-rw-r--r--. 1 ec2-user ec2-user  0 Sep 28 06:13 file12.txt
+-rw-r--r--. 1 ec2-user ec2-user  0 Sep 28 06:13 file13.txt
+[ec2-user@ip-10-0-0-52 ~]$ ls *.yml
+file1.yml  file2.yml  file3.yml  file4.yml  file5.yml
+[ec2-user@ip-10-0-0-52 ~]$ 
