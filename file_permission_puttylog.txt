@@ -1,0 +1,107 @@
+
+login as: ec2-user
+Authenticating with public key "GUVI-TASK-KEY"
+
+A newer release of "Amazon Linux" is available.
+  Version 2023.9.20250929:
+Run "/usr/bin/dnf check-release-update" for full release and version update info
+   ,     #_
+   ~\_  ####_        Amazon Linux 2023
+  ~~  \_#####\
+  ~~     \###|
+  ~~       \#/ ___   https://aws.amazon.com/linux/amazon-linux-2023
+   ~~       V~' '->
+    ~~~         /
+      ~~._.   _/
+         _/ _/
+       _/m/'
+Last login: Sun Sep 28 06:15:04 2025 from 103.78.166.121
+[ec2-user@ip-10-0-0-52 ~]$ whoami
+ec2-user
+[ec2-user@ip-10-0-0-52 ~]$ ls
+file1.yml   file11.txt  file13.txt  file15.txt  file17.txt  file19.txt  file20.txt  file4.yml  file6.txt  file8.txt  my_folder
+file10.txt  file12.txt  file14.txt  file16.txt  file18.txt  file2.yml   file3.yml   file5.yml  file7.txt  file9.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch demo.txt
+[ec2-user@ip-10-0-0-52 ~]$ ls
+demo.txt   file10.txt  file12.txt  file14.txt  file16.txt  file18.txt  file2.yml   file3.yml  file5.yml  file7.txt  file9.txt
+file1.yml  file11.txt  file13.txt  file15.txt  file17.txt  file19.txt  file20.txt  file4.yml  file6.txt  file8.txt  my_folder
+[ec2-user@ip-10-0-0-52 ~]$ pwd
+/home/ec2-user
+[ec2-user@ip-10-0-0-52 ~]$ chmod
+chmod: missing operand
+Try 'chmod --help' for more information.
+[ec2-user@ip-10-0-0-52 ~]$ chmod --help
+Usage: chmod [OPTION]... MODE[,MODE]... FILE...
+  or:  chmod [OPTION]... OCTAL-MODE FILE...
+  or:  chmod [OPTION]... --reference=RFILE FILE...
+Change the mode of each FILE to MODE.
+With --reference, change the mode of each FILE to that of RFILE.
+
+  -c, --changes          like verbose but report only when a change is made
+  -f, --silent, --quiet  suppress most error messages
+  -v, --verbose          output a diagnostic for every file processed
+      --no-preserve-root  do not treat '/' specially (the default)
+      --preserve-root    fail to operate recursively on '/'
+      --reference=RFILE  use RFILE's mode instead of MODE values
+  -R, --recursive        change files and directories recursively
+      --help     display this help and exit
+      --version  output version information and exit
+
+Each MODE is of the form '[ugoa]*([-+=]([rwxXst]*|[ugo]))+|[-+=][0-7]+'.
+
+GNU coreutils online help: <https://www.gnu.org/software/coreutils/>
+Report any translation bugs to <https://translationproject.org/team/>
+Full documentation <https://www.gnu.org/software/coreutils/chmod>
+or available locally via: info '(coreutils) chmod invocation'
+[ec2-user@ip-10-0-0-52 ~]$ rm demo.txt
+[ec2-user@ip-10-0-0-52 ~]$ ls
+file1.yml   file11.txt  file13.txt  file15.txt  file17.txt  file19.txt  file20.txt  file4.yml  file6.txt  file8.txt  my_folder
+file10.txt  file12.txt  file14.txt  file16.txt  file18.txt  file2.yml   file3.yml   file5.yml  file7.txt  file9.txt
+[ec2-user@ip-10-0-0-52 ~]$ touch /home/demo.txt
+touch: cannot touch '/home/demo.txt': Permission denied
+[ec2-user@ip-10-0-0-52 ~]$ sudo touch /home/demo.txt
+[ec2-user@ip-10-0-0-52 ~]$ adduser
+Usage: adduser [options] LOGIN
+       adduser -D
+       adduser -D [options]
+
+Options:
+      --badnames                do not check for bad names
+  -b, --base-dir BASE_DIR       base directory for the home directory of the
+                                new account
+      --btrfs-subvolume-home    use BTRFS subvolume for home directory
+  -c, --comment COMMENT         GECOS field of the new account
+  -d, --home-dir HOME_DIR       home directory of the new account
+  -D, --defaults                print or change default useradd configuration
+  -e, --expiredate EXPIRE_DATE  expiration date of the new account
+  -f, --inactive INACTIVE       password inactivity period of the new account
+  -g, --gid GROUP               name or ID of the primary group of the new
+                                account
+  -G, --groups GROUPS           list of supplementary groups of the new
+                                account
+  -h, --help                    display this help message and exit
+  -k, --skel SKEL_DIR           use this alternative skeleton directory
+  -K, --key KEY=VALUE           override /etc/login.defs defaults
+  -l, --no-log-init             do not add the user to the lastlog and
+                                faillog databases
+  -m, --create-home             create the user's home directory
+  -M, --no-create-home          do not create the user's home directory
+  -N, --no-user-group           do not create a group with the same name as
+                                the user
+  -o, --non-unique              allow to create users with duplicate
+                                (non-unique) UID
+  -p, --password PASSWORD       encrypted password of the new account
+  -r, --system                  create a system account
+  -R, --root CHROOT_DIR         directory to chroot into
+  -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* files
+  -s, --shell SHELL             login shell of the new account
+  -u, --uid UID                 user ID of the new account
+  -U, --user-group              create a group with the same name as the user
+  -Z, --selinux-user SEUSER     use a specific SEUSER for the SELinux user mapping
+
+[ec2-user@ip-10-0-0-52 ~]$ sudo chmod 764 /demo.txt
+chmod: cannot access '/demo.txt': No such file or directory
+[ec2-user@ip-10-0-0-52 ~]$ sudo chmod 764 /home/demo.txt
+[ec2-user@ip-10-0-0-52 ~]$ ls -l /home/demo.txt
+-rwxrw-r--. 1 root root 0 Oct  1 13:23 /home/demo.txt
+[ec2-user@ip-10-0-0-52 ~]$
