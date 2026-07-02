@@ -1,0 +1,394 @@
+
+A newer release of "Amazon Linux" is available.
+  Version 2023.10.20260105:
+  Version 2023.10.20260120:
+  Version 2023.10.20260202:
+  Version 2023.10.20260216:
+  Version 2023.10.20260302:
+  Version 2023.10.20260325:
+  Version 2023.10.20260330:
+  Version 2023.11.20260406:
+  Version 2023.11.20260413:
+  Version 2023.11.20260427:
+  Version 2023.11.20260505:
+  Version 2023.11.20260509:
+  Version 2023.11.20260511:
+  Version 2023.11.20260514:
+  Version 2023.11.20260526:
+  Version 2023.12.20260608:
+  Version 2023.12.20260611:
+  Version 2023.12.20260622:
+  Version 2023.12.20260629:
+  Version 2023.9.20250929:
+  Version 2023.9.20251014:
+  Version 2023.9.20251020:
+  Version 2023.9.20251027:
+  Version 2023.9.20251105:
+  Version 2023.9.20251110:
+  Version 2023.9.20251117:
+  Version 2023.9.20251208:
+Run "/usr/bin/dnf check-release-update" for full release and version update info
+   ,     #_
+   ~\_  ####_        Amazon Linux 2023
+  ~~  \_#####\
+  ~~     \###|
+  ~~       \#/ ___   https://aws.amazon.com/linux/amazon-linux-2023
+   ~~       V~' '->
+    ~~~         /
+      ~~._.   _/
+         _/ _/
+       _/m/'
+Last login: Thu Jul  2 07:21:57 2026 from 18.206.107.29
+[ec2-user@ip-10-0-0-52 ~]$ docker --version
+Docker version 25.0.8, build 0bab007
+[ec2-user@ip-10-0-0-52 ~]$ docker pull ubuntu
+docker pull nginx
+docker pull hello-world
+Using default tag: latest
+latest: Pulling from library/ubuntu
+a9be9fd915e9: Pull complete 
+2c1ce1d0a589: Pull complete 
+Digest: sha256:b7f48194d4d8b763a478a621cdc81c27be222ba2206ca3ca6bc42b49685f3d9e
+Status: Downloaded newer image for ubuntu:latest
+docker.io/library/ubuntu:latest
+Using default tag: latest
+latest: Pulling from library/nginx
+e95a6c7ea7d4: Pull complete 
+df68ee7e7a00: Pull complete 
+1b30016634d5: Pull complete 
+acf093e7a04f: Pull complete 
+cd9307c9ecd8: Pull complete 
+fcb6fd84b2a0: Pull complete 
+1645c1e06f46: Pull complete 
+Digest: sha256:ec4ed8b5299e5e90694af7750eb6dffd2627317d30544d056b0371f8082f7bce
+Status: Downloaded newer image for nginx:latest
+docker.io/library/nginx:latest
+Using default tag: latest
+latest: Pulling from library/hello-world
+4f55086f7dd0: Pull complete 
+Digest: sha256:96498ffd522e70807ab6384a5c0485a79b9c7c08ca79ba08623edcad1054e62d
+Status: Downloaded newer image for hello-world:latest
+docker.io/library/hello-world:latest
+[ec2-user@ip-10-0-0-52 ~]$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+ubuntu        latest    4aaf0b273f92   5 days ago     100MB
+nginx         latest    9f33606b3685   8 days ago     161MB
+hello-world   latest    e2ac70e7319a   3 months ago   10.1kB
+[ec2-user@ip-10-0-0-52 ~]$ docker image ls
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+ubuntu        latest    4aaf0b273f92   5 days ago     100MB
+nginx         latest    9f33606b3685   8 days ago     161MB
+hello-world   latest    e2ac70e7319a   3 months ago   10.1kB
+[ec2-user@ip-10-0-0-52 ~]$ docker search nginx
+NAME                                     DESCRIPTION                                     STARS     OFFICIAL
+nginx                                    Official build of Nginx.                        21318     [OK]
+nginx/nginx-ingress                      NGINX and  NGINX Plus Ingress Controllers fo…   121       
+nginx/nginx-prometheus-exporter          NGINX Prometheus Exporter for NGINX and NGIN…   52        
+nginx/nginx-ingress-operator             NGINX Ingress Operator for NGINX and NGINX P…   4         
+nginx/nginxaas-loadbalancer-kubernetes                                                   1         
+bitnamicharts/nginx                      Bitnami Helm chart for NGINX Open Source        4         
+ubuntu/nginx                             Nginx, a high-performance reverse proxy & we…   141       
+kasmweb/nginx                            An Nginx image based off nginx:alpine and in…   9         
+rancher/nginx                                                                            4         
+linuxserver/nginx                        An Nginx container, brought to you by LinuxS…   236       
+dtagdevsec/nginx                         T-Pot Nginx                                     0         
+paketobuildpacks/nginx                                                                   0         
+vmware/nginx                                                                             3         
+gluufederation/nginx                      A customized NGINX image containing a consu…   1         
+antrea/nginx                             Nginx server used for Antrea e2e testing        0         
+cleanstart/nginx                         Secure by Design, Built for Speed, Hardened …   0         
+activestate/nginx                        ActiveState's customizable, low-to-no vulner…   0         
+intel/nginx                                                                              0         
+docksal/nginx                            Nginx service image for Docksal                 1         
+geokrety/nginx                           Our customized nginx image                      0         
+circleci/nginx                           This image is for internal use                  2         
+ilios/nginx                              Nginx customized to run Ilios along with the…   0         
+corpusops/nginx                          https://github.com/corpusops/docker-images/     1         
+dockette/nginx                           Nginx SSL / HSTS / HTTP2                        3         
+wayofdev/nginx                           Nginx Docker image for PHP development. SSL-…   0         
+[ec2-user@ip-10-0-0-52 ~]$ docker image inspect nginx
+[
+    {
+        "Id": "sha256:9f33606b36859ee2db3b761a893fb7c2fc8a13c0fe5f24e304b129f3caf499ad",
+        "RepoTags": [
+            "nginx:latest"
+        ],
+        "RepoDigests": [
+            "nginx@sha256:ec4ed8b5299e5e90694af7750eb6dffd2627317d30544d056b0371f8082f7bce"
+        ],
+        "Parent": "",
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-06-24T01:21:58.377973076Z",
+        "Container": "",
+        "ContainerConfig": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": null,
+            "Cmd": null,
+            "Image": "",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": null
+        },
+        "DockerVersion": "",
+        "Author": "",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "80/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "NGINX_VERSION=1.31.2",
+                "NJS_VERSION=0.9.9",
+                "NJS_RELEASE=1~trixie",
+                "ACME_VERSION=0.4.1",
+                "PKG_RELEASE=1~trixie",
+                "DYNPKG_RELEASE=1~trixie"
+            ],
+            "Cmd": [
+                "nginx",
+                "-g",
+                "daemon off;"
+            ],
+            "Image": "",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": [
+                "/docker-entrypoint.sh"
+            ],
+            "OnBuild": null,
+            "Labels": {
+                "maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>"
+            },
+            "StopSignal": "SIGQUIT"
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 161308134,
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/3204fc6c31fead8f57459664a294e68485b10889c51dd4c68709a1e65125daea/diff:/var/lib/docker/overlay2/68a7938b1fc7a959b4ea3e2c69a061997f279fbcd888a2c840f9f5aac5c672c9/diff:/var/lib/docker/overlay2/04d30ad12da623258ac3ccffd670699ed8a74a83021c240e32cc56a3156567b1/diff:/var/lib/docker/overlay2/6a321082fc439434ac915704fb2cba9ce9fe97a1ac5d8540a8bf7caf5dec72f7/diff:/var/lib/docker/overlay2/74dce9e7631ab2a8058f44102c236228f2a3042ea9760683e040755a90c52888/diff:/var/lib/docker/overlay2/0e68cea226aa38e712011a5841a50db0c0ed2f6f7d6cdd2080820d80159c7cef/diff",
+                "MergedDir": "/var/lib/docker/overlay2/cfa1ad3ff1826dca2bbd9c8ec5359ba668cffd1f9dc20c5969fbee7f750c8e44/merged",
+                "UpperDir": "/var/lib/docker/overlay2/cfa1ad3ff1826dca2bbd9c8ec5359ba668cffd1f9dc20c5969fbee7f750c8e44/diff",
+                "WorkDir": "/var/lib/docker/overlay2/cfa1ad3ff1826dca2bbd9c8ec5359ba668cffd1f9dc20c5969fbee7f750c8e44/work"
+            },
+            "Name": "overlay2"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:3edb2192497af6e965b9b7e57dc6dbdce1f3ea721d14a98110419d4ded523298",
+                "sha256:fcf6aab8bf4a29699bde607fc21ee39e7e1df2884122b053799359a1665eff8a",
+                "sha256:2794799fb83d3e03f69652d5c4fc3a854bd5ed9660d1c134204610943884ab97",
+                "sha256:f26790bea8ca1115a2a83d2b101a6351e317b3214cd4336e3d68d0410470d618",
+                "sha256:24460d3f0d75ae79324ce00c5e066215cbf2e56de3fc6e2ee651ced7746471e0",
+                "sha256:35209d7a0ceb10c48d5b3fb1e4c99cd1c6e79e1cdb2d6f9b67f5a9cc65efc308",
+                "sha256:e2a57e9f9993940dfc59e79e137eaae9099af5518b57247276dc5e7c58b554a5"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "0001-01-01T00:00:00Z"
+        }
+    }
+]
+[ec2-user@ip-10-0-0-52 ~]$ docker build -t myapp:1.0 .
+[+] Building 0.7s (1/1) FINISHED                                                                                                                        docker:default
+ => [internal] load build definition from Dockerfile                                                                                                              0.3s
+ => => transferring dockerfile: 2B                                                                                                                                0.0s
+ERROR: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory
+[ec2-user@ip-10-0-0-52 ~]$ docker build -t myapp:1.0
+ERROR: "docker buildx build" requires exactly 1 argument.
+See 'docker buildx build --help'.
+
+Usage:  docker buildx build [OPTIONS] PATH | URL | -
+
+Start a build
+[ec2-user@ip-10-0-0-52 ~]$ mkdir myapp
+[ec2-user@ip-10-0-0-52 ~]$ cd myapp
+[ec2-user@ip-10-0-0-52 myapp]$ # Create a simple HTML file
+cat > index.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Achu's Docker App</title>
+</head>
+<body>
+    <h1>Hello from Achu's Docker Container!!</h1>
+    <p>Built with Docker on AWS EC2!!</p>
+</body>
+</html>
+EOF
+[ec2-user@ip-10-0-0-52 myapp]$ # Create Dockerfile
+cat > Dockerfile << 'EOF'
+# Base image
+FROM ubuntu:20.04
+
+# Who created this image
+LABEL maintainer="aswini.raji1998@gmail.com"
+
+# Update packages
+RUN apt-get update -y
+
+# Install nginx
+RUN apt-get install -y nginx
+
+# Copy HTML file to nginx folder
+COPY index.html /usr/share/nginx/html/index.html
+
+# Open port 80
+EXPOSE 80
+
+# Start nginx when container runs
+CMD ["nginx", "-g", "daemon off;"]
+EOF
+[ec2-user@ip-10-0-0-52 myapp]$ ls -la
+total 24
+drwxr-xr-x. 2 ec2-user ec2-user    42 Jul  2 07:52 .
+drwx------. 7 ec2-user ec2-user 16384 Jul  2 07:50 ..
+-rw-r--r--. 1 ec2-user ec2-user   368 Jul  2 07:52 Dockerfile
+-rw-r--r--. 1 ec2-user ec2-user   190 Jul  2 07:51 index.html
+[ec2-user@ip-10-0-0-52 myapp]$ cat Dockerfile
+# Base image
+FROM ubuntu:20.04
+
+# Who created this image
+LABEL maintainer="aswini.raji1998@gmail.com"
+
+# Update packages
+RUN apt-get update -y
+
+# Install nginx
+RUN apt-get install -y nginx
+
+# Copy HTML file to nginx folder
+COPY index.html /usr/share/nginx/html/index.html
+
+# Open port 80
+EXPOSE 80
+
+# Start nginx when container runs
+CMD ["nginx", "-g", "daemon off;"]
+[ec2-user@ip-10-0-0-52 myapp]$ cat index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Achu's Docker App</title>
+</head>
+<body>
+    <h1>Hello from Achu's Docker Container!!</h1>
+    <p>Built with Docker on AWS EC2!!</p>
+</body>
+</html>
+[ec2-user@ip-10-0-0-52 myapp]$ docker build -t achu-nginx:1.0 .
+[+] Building 29.0s (9/9) FINISHED                                                                                                                       docker:default
+ => [internal] load build definition from Dockerfile                                                                                                              0.1s
+ => => transferring dockerfile: 466B                                                                                                                              0.0s
+ => [internal] load metadata for docker.io/library/ubuntu:20.04                                                                                                   0.7s
+ => [internal] load .dockerignore                                                                                                                                 0.1s
+ => => transferring context: 2B                                                                                                                                   0.0s
+ => [1/4] FROM docker.io/library/ubuntu:20.04@sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214                                             2.1s
+ => => resolve docker.io/library/ubuntu:20.04@sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214                                             0.1s
+ => => sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214 6.69kB / 6.69kB                                                                    0.0s
+ => => sha256:c664f8f86ed5a386b0a340d981b8f81714e21a8b9c73f658c4bea56aa179d54a 424B / 424B                                                                        0.0s
+ => => sha256:b7bab04fd9aa0c771e5720bf0cc7cbf993fd6946645983d9096126e5af45d713 2.30kB / 2.30kB                                                                    0.0s
+ => => sha256:13b7e930469f6d3575a320709035c6acf6f5485a76abcf03d1b92a64c09c2476 27.51MB / 27.51MB                                                                  0.4s
+ => => extracting sha256:13b7e930469f6d3575a320709035c6acf6f5485a76abcf03d1b92a64c09c2476                                                                         1.2s
+ => [internal] load build context                                                                                                                                 0.1s
+ => => transferring context: 288B                                                                                                                                 0.0s
+ => [2/4] RUN apt-get update -y                                                                                                                                   6.6s
+ => [3/4] RUN apt-get install -y nginx                                                                                                                           17.8s
+ => [4/4] COPY index.html /usr/share/nginx/html/index.html                                                                                                        0.2s 
+ => exporting to image                                                                                                                                            1.0s 
+ => => exporting layers                                                                                                                                           1.0s 
+ => => writing image sha256:ae56e1586beeb8fee2926e6a5827ade4ca0aa17ee6dfef4af75a15b60fd8769d                                                                      0.0s 
+ => => naming to docker.io/library/achu-nginx:1.0                                                                                                                 0.0s 
+[ec2-user@ip-10-0-0-52 myapp]$ ^C                                                                                                                                      
+[ec2-user@ip-10-0-0-52 myapp]$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+achu-nginx    1.0       ae56e1586bee   3 minutes ago   190MB
+ubuntu        latest    4aaf0b273f92   5 days ago      100MB
+nginx         latest    9f33606b3685   8 days ago      161MB
+hello-world   latest    e2ac70e7319a   3 months ago    10.1kB
+[ec2-user@ip-10-0-0-52 myapp]$ docker run -d \
+  --name achu-web \
+  -p 8080:80 \
+  achu-nginx:1.0
+5b97b91ae01a895508fd80b46ddc303eb865a1db561408d4202d331b99191736
+[ec2-user@ip-10-0-0-52 myapp]$ docker ps
+CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+5b97b91ae01a   achu-nginx:1.0   "nginx -g 'daemon of…"   15 seconds ago   Up 10 seconds   0.0.0.0:8080->80/tcp, :::8080->80/tcp   achu-web
+[ec2-user@ip-10-0-0-52 myapp]$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED          SIZE
+achu-nginx    1.0       ae56e1586bee   11 minutes ago   190MB
+ubuntu        latest    4aaf0b273f92   5 days ago       100MB
+nginx         latest    9f33606b3685   8 days ago       161MB
+hello-world   latest    e2ac70e7319a   3 months ago     10.1kB
+[ec2-user@ip-10-0-0-52 myapp]$ # Step 2 — Run your container!!
+docker run -d \
+  --name achu-web \
+  -p 8080:80 \
+  achu-nginx:1.0
+docker: Error response from daemon: Conflict. The container name "/achu-web" is already in use by container "5b97b91ae01a895508fd80b46ddc303eb865a1db561408d4202d331b99191736". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+[ec2-user@ip-10-0-0-52 myapp]$ docker ps
+CONTAINER ID   IMAGE            COMMAND                  CREATED         STATUS         PORTS                                   NAMES
+5b97b91ae01a   achu-nginx:1.0   "nginx -g 'daemon of…"   8 minutes ago   Up 8 minutes   0.0.0.0:8080->80/tcp, :::8080->80/tcp   achu-web
+[ec2-user@ip-10-0-0-52 myapp]$ docker exec -it achu-web /bin/bash
+root@5b97b91ae01a:/# cat /usr/share/nginx/html/index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Achu's Docker App</title>
+</head>
+<body>
+    <h1>Hello from Achu's Docker Container!!</h1>
+    <p>Built with Docker on AWS EC2!!</p>
+</body>
+</html>
+root@5b97b91ae01a:/# docker volume create myvolume
+bash: docker: command not found
+root@5b97b91ae01a:/# docker volume create myvolume
+bash: docker: command not found
+root@5b97b91ae01a:/# exit
+exit
+[ec2-user@ip-10-0-0-52 myapp]$ docker volume create myvolume
+myvolume
+[ec2-user@ip-10-0-0-52 myapp]$ docker volume ls
+DRIVER    VOLUME NAME
+local     myvolume
+[ec2-user@ip-10-0-0-52 myapp]$ docker volume inspect myvolume
+[
+    {
+        "CreatedAt": "2026-07-02T08:24:43Z",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/myvolume/_data",
+        "Name": "myvolume",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+[ec2-user@ip-10-0-0-52 myapp]$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+21af4c81d8c6   bridge    bridge    local
+06a0bdf574a6   host      host      local
+7659d7566691   none      null      local
+[ec2-user@ip-10-0-0-52 myapp]$ 
