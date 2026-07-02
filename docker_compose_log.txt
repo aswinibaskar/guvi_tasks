@@ -1,0 +1,126 @@
+[ec2-user@ip-10-0-0-52 task2]$ nano index.html
+[ec2-user@ip-10-0-0-52 task2]$ y
+-bash: y: command not found
+[ec2-user@ip-10-0-0-52 task2]$ nano Dockerfile
+[ec2-user@ip-10-0-0-52 task2]$ nano docker-compose.yml
+[ec2-user@ip-10-0-0-52 task2]$ ls -la
+total 36
+drwxr-xr-x. 2 ec2-user ec2-user    68 Jul  2 08:45 .
+drwx------. 8 ec2-user ec2-user 16384 Jul  2 08:38 ..
+-rw-r--r--. 1 ec2-user ec2-user   230 Jul  2 08:45 Dockerfile
+-rw-r--r--. 1 ec2-user ec2-user   269 Jul  2 08:45 docker-compose.yml
+-rw-r--r--. 1 ec2-user ec2-user  8470 Jul  2 08:42 index.html
+[ec2-user@ip-10-0-0-52 task2]$ cat Dockerfile
+FROM nginx:alpine
+LABEL maintainer="aswini.raji1998@gmail.com"
+LABEL description="Aswini B - Personal Profile Page"
+LABEL version="1.0"
+COPY index.html /usr/share/nginx/html/index.html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+[ec2-user@ip-10-0-0-52 task2]$ cat docker-compose.yml
+version: '3.8'
+
+services:
+  profile-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aswini-profile
+    ports:
+      - "8090:80"
+    restart: always
+    networks:
+      - profile-network
+
+networks:
+  profile-network:
+    driver: bridge
+[ec2-user@ip-10-0-0-52 task2]$ head -20 index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aswini B - Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1a3c5e, #2d6a9f);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+[ec2-user@ip-10-0-0-52 task2]$ sudo curl -L \
+"https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" \
+-o /usr/local/bin/docker-compose
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 30.9M  100 30.9M    0     0   116M      0 --:--:-- --:--:-- --:--:--  116M
+[ec2-user@ip-10-0-0-52 task2]$ sudo chmod +x /usr/local/bin/docker-compose
+[ec2-user@ip-10-0-0-52 task2]$ docker-compose --version
+Docker Compose version v5.2.0
+[ec2-user@ip-10-0-0-52 task2]$ docker-compose up -d
+WARN[0000] /home/ec2-user/task2/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+[+] up 0/1
+ ⠋ Image task2-profile-web Building                                                                                                                                0.0s
+compose build requires buildx 0.17.0 or later
+[ec2-user@ip-10-0-0-52 task2]$ docker-compose ps
+WARN[0000] /home/ec2-user/task2/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+NAME      IMAGE     COMMAND   SERVICE   CREATED   STATUS    PORTS
+[ec2-user@ip-10-0-0-52 task2]$ nano docker-compose.yml
+[ec2-user@ip-10-0-0-52 task2]$ docker build -t aswini-profile:1.0 .
+[+] Building 8.6s (7/7) FINISHED                                                                                                                        docker:default
+ => [internal] load build definition from Dockerfile                                                                                                              0.1s
+ => => transferring dockerfile: 328B                                                                                                                              0.0s
+ => [internal] load metadata for docker.io/library/nginx:alpine                                                                                                   2.0s
+ => [internal] load .dockerignore                                                                                                                                 0.1s
+ => => transferring context: 2B                                                                                                                                   0.0s
+ => [internal] load build context                                                                                                                                 0.1s
+ => => transferring context: 8.57kB                                                                                                                               0.0s
+ => [1/2] FROM docker.io/library/nginx:alpine@sha256:54f2a904c251d5a34adf545a72d32515a15e08418dae0266e23be2e18c66fefa                                             4.5s
+ => => resolve docker.io/library/nginx:alpine@sha256:54f2a904c251d5a34adf545a72d32515a15e08418dae0266e23be2e18c66fefa                                             0.1s
+ => => sha256:35cd77497979abe70dc8d26f5ae60811eea233a2eb5dc03c2ee30972caeb303e 2.50kB / 2.50kB                                                                    0.0s
+ => => sha256:ea51152ef8c480b999cee0271a288c698704b18483276119b1253e576ef3232f 12.32kB / 12.32kB                                                                  0.0s
+ => => sha256:54f2a904c251d5a34adf545a72d32515a15e08418dae0266e23be2e18c66fefa 10.33kB / 10.33kB                                                                  0.0s
+ => => sha256:e6f31ffc071e5560b82a8685fba8214954e5721e3e49269d00958316edbe89fe 3.84MB / 3.84MB                                                                    0.1s
+ => => sha256:c16defe09b2f86b04c4143bb610095be90732794fce5c56fb7185f02feadd879 1.89MB / 1.89MB                                                                    0.2s
+ => => extracting sha256:e6f31ffc071e5560b82a8685fba8214954e5721e3e49269d00958316edbe89fe                                                                         0.2s
+ => => sha256:5b429a43b8dfa079c3ac95537bd88d5f1ac70e478c64f100b8ef6aa9c555ebc2 628B / 628B                                                                        0.2s
+ => => sha256:ab1fd90497517c799d4fb351bc1a7ae8b58e231345d4948ae8ac73c75b320b35 405B / 405B                                                                        0.3s
+ => => sha256:ce42635eeddd348e8266227a36db92cea8a45d5177d03e9a922a7bfb25762b7f 1.21kB / 1.21kB                                                                    0.6s
+ => => extracting sha256:c16defe09b2f86b04c4143bb610095be90732794fce5c56fb7185f02feadd879                                                                         0.1s
+ => => sha256:01bf363d61e6136ebd7dcaf74b303bd08ee8f849a04e2c0be5a8d03159b404f6 1.40kB / 1.40kB                                                                    0.7s
+ => => sha256:c75b9c33e8b0983941fe03793379bd5d137f641f92b4a94d1c8956d28ba77f65 20.25MB / 20.25MB                                                                  1.4s
+ => => sha256:967885d218c57d3ce2a4e906131fb25f59e6f56cce51d87dde7d74b0e7465675 955B / 955B                                                                        0.4s
+ => => extracting sha256:5b429a43b8dfa079c3ac95537bd88d5f1ac70e478c64f100b8ef6aa9c555ebc2                                                                         0.1s
+ => => extracting sha256:967885d218c57d3ce2a4e906131fb25f59e6f56cce51d87dde7d74b0e7465675                                                                         0.0s
+ => => extracting sha256:ab1fd90497517c799d4fb351bc1a7ae8b58e231345d4948ae8ac73c75b320b35                                                                         0.0s
+ => => extracting sha256:ce42635eeddd348e8266227a36db92cea8a45d5177d03e9a922a7bfb25762b7f                                                                         0.0s
+ => => extracting sha256:01bf363d61e6136ebd7dcaf74b303bd08ee8f849a04e2c0be5a8d03159b404f6                                                                         0.0s
+ => => extracting sha256:c75b9c33e8b0983941fe03793379bd5d137f641f92b4a94d1c8956d28ba77f65                                                                         0.6s
+ => [2/2] COPY index.html /usr/share/nginx/html/index.html                                                                                                        1.0s
+ => exporting to image                                                                                                                                            0.3s
+ => => exporting layers                                                                                                                                           0.2s
+ => => writing image sha256:3cfeb7d56e36ebe6fe9a03588af2be640667983a2397d52fa7f2422848357d5e                                                                      0.0s
+ => => naming to docker.io/library/aswini-profile:1.0                                                                                                             0.0s
+[ec2-user@ip-10-0-0-52 task2]$ docker-compose up -d
+[+] up 2/2
+ ✔ Network task2_profile-network Created                                                                                                                           0.3s
+ ✔ Container aswini-profile      Started                                                                                                                           0.8s
+[ec2-user@ip-10-0-0-52 task2]$ docker-compose ps
+NAME             IMAGE                COMMAND                  SERVICE       CREATED          STATUS          PORTS
+aswini-profile   aswini-profile:1.0   "/docker-entrypoint.…"   profile-web   15 seconds ago   Up 13 seconds   0.0.0.0:8090->80/tcp, [::]:8090->80/tcp
+[ec2-user@ip-10-0-0-52 task2]$ docker ps
+CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+1def83ffcc6e   aswini-profile:1.0   "/docker-entrypoint.…"   25 seconds ago   Up 24 seconds   0.0.0.0:8090->80/tcp, :::8090->80/tcp   aswini-profile
+5b97b91ae01a   achu-nginx:1.0       "nginx -g 'daemon of…"   54 minutes ago   Up 54 minutes   0.0.0.0:8080->80/tcp, :::8080->80/tcp   achu-web
+[ec2-user@ip-10-0-0-52 task2]$ 
