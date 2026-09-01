@@ -1,0 +1,438 @@
+[ec2-user@ip-10-0-0-52 ~]$ aws configure
+AWS Access Key ID [None]: 
+AWS Secret Access Key [None]: 
+Default region name [None]: ap-south-1
+Default output format [None]: json
+[ec2-user@ip-10-0-0-52 ~]$ curl --silent --location \
+"https://github.com/weaveworks/eksctl/\
+releases/latest/download/\
+eksctl_$(uname -s)_amd64.tar.gz" \
+| tar xz -C /tmp
+[ec2-user@ip-10-0-0-52 ~]$ sudo mv /tmp/eksctl /usr/local/bin
+[ec2-user@ip-10-0-0-52 ~]$ eksctl version
+0.230.0
+[ec2-user@ip-10-0-0-52 ~]$ curl -LO \
+"https://dl.k8s.io/release/\
+$(curl -L -s \
+https://dl.k8s.io/release/stable.txt)\
+/bin/linux/amd64/kubectl"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 59.0M  100 59.0M    0     0   399M      0 --:--:-- --:--:-- --:--:--  398M
+[ec2-user@ip-10-0-0-52 ~]$ chmod +x kubectl
+[ec2-user@ip-10-0-0-52 ~]$ sudo mv kubectl /usr/local/bin/
+[ec2-user@ip-10-0-0-52 ~]$ kubectl version --client
+Client Version: v1.37.0
+Kustomize Version: v5.8.1
+[ec2-user@ip-10-0-0-52 ~]$ # Create EKS cluster!!
+# This takes 15-20 minutes!!
+eksctl create cluster \
+--name aswini-eks-cluster \
+--region ap-south-1 \
+--nodegroup-name aswini-nodes \
+--node-type t3.micro \
+--nodes 2 \
+--nodes-min 1 \
+--nodes-max 3 \
+--managed
+2026-09-01 13:36:30 [ℹ]  eksctl version 0.230.0
+2026-09-01 13:36:30 [ℹ]  using region ap-south-1
+2026-09-01 13:36:31 [ℹ]  setting availability zones to [ap-south-1c ap-south-1b ap-south-1a]
+2026-09-01 13:36:31 [ℹ]  subnets for ap-south-1c - public:192.168.0.0/19 private:192.168.96.0/19
+2026-09-01 13:36:31 [ℹ]  subnets for ap-south-1b - public:192.168.32.0/19 private:192.168.128.0/19
+2026-09-01 13:36:31 [ℹ]  subnets for ap-south-1a - public:192.168.64.0/19 private:192.168.160.0/19
+2026-09-01 13:36:31 [ℹ]  nodegroup "aswini-nodes" will use "" [AmazonLinux2023/1.34]
+2026-09-01 13:36:31 [!]  Auto Mode will be enabled by default in an upcoming release of eksctl. This means managed node groups and managed networking add-ons will no longer be created by default. To maintain current behavior, explicitly set 'autoModeConfig.enabled: false' in your cluster configuration. Learn more: https://eksctl.io/usage/auto-mode/
+2026-09-01 13:36:31 [ℹ]  using Kubernetes version 1.34
+2026-09-01 13:36:31 [ℹ]  creating EKS cluster "aswini-eks-cluster" in "ap-south-1" region with managed nodes
+2026-09-01 13:36:31 [ℹ]  will create 2 separate CloudFormation stacks for cluster itself and the initial managed nodegroup
+2026-09-01 13:36:31 [ℹ]  if you encounter any issues, check CloudFormation console or try 'eksctl utils describe-stacks --region=ap-south-1 --cluster=aswini-eks-cluster'
+2026-09-01 13:36:31 [ℹ]  Kubernetes API endpoint access will use default of {publicAccess=true, privateAccess=false} for cluster "aswini-eks-cluster" in "ap-south-1"
+2026-09-01 13:36:31 [ℹ]  CloudWatch logging will not be enabled for cluster "aswini-eks-cluster" in "ap-south-1"
+2026-09-01 13:36:31 [ℹ]  you can enable it with 'eksctl utils update-cluster-logging --enable-types={SPECIFY-YOUR-LOG-TYPES-HERE (e.g. all)} --region=ap-south-1 --cluster=aswini-eks-cluster'
+2026-09-01 13:36:31 [ℹ]  default addons vpc-cni, kube-proxy, coredns, metrics-server were not specified, will install them as EKS addons
+2026-09-01 13:36:31 [ℹ]  
+2 sequential tasks: { create cluster control plane "aswini-eks-cluster", 
+    2 sequential sub-tasks: { 
+        2 sequential sub-tasks: { 
+            1 task: { create addons },
+            wait for control plane to become ready,
+        },
+        create managed nodegroup "aswini-nodes",
+    } 
+}
+2026-09-01 13:36:31 [ℹ]  building cluster stack "eksctl-aswini-eks-cluster-cluster"
+2026-09-01 13:36:32 [ℹ]  deploying stack "eksctl-aswini-eks-cluster-cluster"
+2026-09-01 13:37:02 [ℹ]  waiting for CloudFormation stack "eksctl-aswini-eks-cluster-cluster"
+2026-09-01 13:37:33 [ℹ]  waiting for CloudFormation stack "eksctl-aswini-eks-cluster-cluster"
+2026-09-01 13:38:33 [ℹ]  waiting for CloudFormation stack "eksctl-aswini-eks-cluster-cluster"
+2026-09-01 13:39:34 [ℹ]  waiting for CloudFormation stack "eksctl-aswini-eks-cluster-cluster"
+2026-09-01 13:40:34 [ℹ]  waiting for CloudFormation stack "eksctl-aswini-eks-cluster-cluster"
+2026-09-01 13:41:35 [ℹ]  waiting for CloudFormation stack "eksctl-aswini-eks-cluster-cluster"
+2026-09-01 13:42:36 [ℹ]  waiting for CloudFormation stack "eksctl-aswini-eks-cluster-cluster"
+2026-09-01 13:43:36 [ℹ]  waiting for CloudFormation stack "eksctl-aswini-eks-cluster-cluster"
+2026-09-01 13:43:40 [!]  recommended policies were found for "vpc-cni" addon, but since OIDC is disabled on the cluster, eksctl cannot configure the requested permissions; the recommended way to provide IAM permissions for "vpc-cni" addon is via pod identity associations; after addon creation is completed, add all recommended policies to the config file, under `addon.PodIdentityAssociations`, and run `eksctl update addon`
+2026-09-01 13:43:40 [ℹ]  creating addon: vpc-cni
+2026-09-01 13:43:40 [ℹ]  successfully created addon: vpc-cni
+2026-09-01 13:43:41 [ℹ]  creating addon: kube-proxy
+2026-09-01 13:43:41 [ℹ]  successfully created addon: kube-proxy
+2026-09-01 13:43:42 [ℹ]  creating addon: coredns
+2026-09-01 13:43:42 [ℹ]  successfully created addon: coredns
+2026-09-01 13:45:46 [ℹ]  building managed nodegroup stack "eksctl-aswini-eks-cluster-nodegroup-aswini-nodes"
+2026-09-01 13:45:47 [ℹ]  deploying stack "eksctl-aswini-eks-cluster-nodegroup-aswini-nodes"
+2026-09-01 13:45:47 [ℹ]  waiting for CloudFormation stack "eksctl-aswini-eks-cluster-nodegroup-aswini-nodes"
+2026-09-01 13:46:17 [ℹ]  waiting for CloudFormation stack "eksctl-aswini-eks-cluster-nodegroup-aswini-nodes"
+2026-09-01 13:47:05 [ℹ]  waiting for CloudFormation stack "eksctl-aswini-eks-cluster-nodegroup-aswini-nodes"
+2026-09-01 13:48:08 [ℹ]  waiting for CloudFormation stack "eksctl-aswini-eks-cluster-nodegroup-aswini-nodes"
+2026-09-01 13:49:02 [ℹ]  waiting for CloudFormation stack "eksctl-aswini-eks-cluster-nodegroup-aswini-nodes"
+2026-09-01 13:49:02 [ℹ]  waiting for the control plane to become ready
+2026-09-01 13:49:04 [✔]  saved kubeconfig as "/home/ec2-user/.kube/config"
+2026-09-01 13:49:04 [ℹ]  no tasks
+2026-09-01 13:49:04 [✔]  all EKS cluster resources for "aswini-eks-cluster" have been created
+2026-09-01 13:49:05 [ℹ]  nodegroup "aswini-nodes" has 2 node(s)
+2026-09-01 13:49:05 [ℹ]  node "ip-192-168-29-10.ap-south-1.compute.internal" is ready
+2026-09-01 13:49:05 [ℹ]  node "ip-192-168-53-40.ap-south-1.compute.internal" is ready
+2026-09-01 13:49:05 [ℹ]  waiting for at least 1 node(s) to become ready in "aswini-nodes"
+2026-09-01 13:49:05 [ℹ]  nodegroup "aswini-nodes" has 2 node(s)
+2026-09-01 13:49:05 [ℹ]  node "ip-192-168-29-10.ap-south-1.compute.internal" is ready
+2026-09-01 13:49:05 [ℹ]  node "ip-192-168-53-40.ap-south-1.compute.internal" is ready
+2026-09-01 13:49:05 [✔]  created 1 managed nodegroup(s) in cluster "aswini-eks-cluster"
+2026-09-01 13:49:06 [ℹ]  creating addon: metrics-server
+2026-09-01 13:49:07 [ℹ]  successfully created addon: metrics-server
+2026-09-01 13:49:08 [ℹ]  kubectl command should work with "/home/ec2-user/.kube/config", try 'kubectl get nodes'
+2026-09-01 13:49:08 [✔]  EKS cluster "aswini-eks-cluster" in "ap-south-1" region is ready
+[ec2-user@ip-10-0-0-52 ~]$ eksctl get cluster
+NAME                    REGION          EKSCTL CREATED
+aswini-eks-cluster      ap-south-1      True
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get nodes
+NAME                                           STATUS   ROLES    AGE     VERSION
+ip-192-168-29-10.ap-south-1.compute.internal   Ready    <none>   5m27s   v1.34.10-eks-cb19647
+ip-192-168-53-40.ap-south-1.compute.internal   Ready    <none>   5m27s   v1.34.10-eks-cb19647
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get pods -A
+NAMESPACE     NAME                             READY   STATUS    RESTARTS   AGE
+kube-system   aws-node-8xdgt                   2/2     Running   0          5m44s
+kube-system   aws-node-96b2s                   2/2     Running   0          5m44s
+kube-system   coredns-74d4db96bc-4jfd8         1/1     Running   0          9m26s
+kube-system   coredns-74d4db96bc-bm74j         1/1     Running   0          9m26s
+kube-system   kube-proxy-nnrdg                 1/1     Running   0          5m44s
+kube-system   kube-proxy-wjdq6                 1/1     Running   0          5m44s
+kube-system   metrics-server-99d8b5799-rfhvx   1/1     Running   0          4m2s
+kube-system   metrics-server-99d8b5799-vvjpn   1/1     Running   0          4m2s
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get namespaces
+NAME              STATUS   AGE
+default           Active   11m
+kube-node-lease   Active   11m
+kube-public       Active   11m
+kube-system       Active   11m
+[ec2-user@ip-10-0-0-52 ~]$ kubectl create namespace nginx-app
+namespace/nginx-app created
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get namespaces
+NAME              STATUS   AGE
+default           Active   12m
+kube-node-lease   Active   12m
+kube-public       Active   12m
+kube-system       Active   12m
+nginx-app         Active   6s
+[ec2-user@ip-10-0-0-52 ~]$ nano nginx-deployment.yaml
+[ec2-user@ip-10-0-0-52 ~]$ nano nginx-service.yaml
+[ec2-user@ip-10-0-0-52 ~]$ kubectl apply -f nginx-deployment.yaml
+deployment.apps/nginx-deployment created
+[ec2-user@ip-10-0-0-52 ~]$ kubectl apply -f nginx-service.yaml
+service/nginx-service created
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get deployment -n nginx-app
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   0/2     2            0           26s
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get deployment -n nginx-app
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   0/2     2            0           39s
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get deployment -n nginx-app
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   0/2     2            0           52s
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get deployment -n nginx-app
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   0/2     2            0           77s
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get deployment -n nginx-app
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   0/2     2            0           3m37s
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get pods -n nginx-app
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-5995856f4f-jvmj6   0/1     Pending   0          4m35s
+nginx-deployment-5995856f4f-xfcvf   0/1     Pending   0          4m35s
+[ec2-user@ip-10-0-0-52 ~]$ kubectl describe nodes | grep -A 8 "Allocated resources"
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests     Limits
+  --------           --------     ------
+  cpu                350m (18%)   0 (0%)
+  memory             140Mi (27%)  340Mi (66%)
+  ephemeral-storage  0 (0%)       0 (0%)
+  hugepages-1Gi      0 (0%)       0 (0%)
+  hugepages-2Mi      0 (0%)       0 (0%)
+--
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests     Limits
+  --------           --------     ------
+  cpu                350m (18%)   0 (0%)
+  memory             400Mi (78%)  800Mi (156%)
+  ephemeral-storage  0 (0%)       0 (0%)
+  hugepages-1Gi      0 (0%)       0 (0%)
+  hugepages-2Mi      0 (0%)       0 (0%)
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get deployment -n nginx-app
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   0/2     2            0           6m44s
+[ec2-user@ip-10-0-0-52 ~]$ kubectl describe pods -n nginx-app
+Name:             nginx-deployment-5995856f4f-jvmj6
+Namespace:        nginx-app
+Priority:         0
+Service Account:  default
+Node:             <none>
+Labels:           app=nginx
+                  pod-template-hash=5995856f4f
+Annotations:      <none>
+Status:           Pending
+IP:               
+IPs:              <none>
+Controlled By:    ReplicaSet/nginx-deployment-5995856f4f
+Containers:
+  nginx:
+    Image:      nginx:latest
+    Port:       80/TCP
+    Host Port:  0/TCP
+    Limits:
+      cpu:     500m
+      memory:  128Mi
+    Requests:
+      cpu:        250m
+      memory:     64Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-4t42l (ro)
+Conditions:
+  Type           Status
+  PodScheduled   False 
+Volumes:
+  kube-api-access-4t42l:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+
+
+Name:             nginx-deployment-5995856f4f-xfcvf
+Namespace:        nginx-app
+Priority:         0
+Service Account:  default
+Node:             <none>
+Labels:           app=nginx
+                  pod-template-hash=5995856f4f
+Annotations:      <none>
+Status:           Pending
+IP:               
+IPs:              <none>
+Controlled By:    ReplicaSet/nginx-deployment-5995856f4f
+Containers:
+  nginx:
+    Image:      nginx:latest
+    Port:       80/TCP
+    Host Port:  0/TCP
+    Limits:
+      cpu:     500m
+      memory:  128Mi
+    Requests:
+      cpu:        250m
+      memory:     64Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-qhhgj (ro)
+Conditions:
+  Type           Status
+  PodScheduled   False 
+Volumes:
+  kube-api-access-qhhgj:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get deployment -n nginx-app
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   0/2     2            0           14m
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get events -n nginx-app --field-selector reason=FailedScheduling
+LAST SEEN   TYPE      REASON             OBJECT                                  MESSAGE
+15m         Warning   FailedScheduling   pod/nginx-deployment-5995856f4f-jvmj6   0/2 nodes are available: 2 Too many pods. no new claims to deallocate, preemption: 0/2 nodes are available: 2 No preemption victims found for incoming pod.
+5m10s       Warning   FailedScheduling   pod/nginx-deployment-5995856f4f-jvmj6   0/2 nodes are available: 2 Too many pods. no new claims to deallocate, preemption: 0/2 nodes are available: 2 No preemption victims found for incoming pod.
+15m         Warning   FailedScheduling   pod/nginx-deployment-5995856f4f-xfcvf   0/2 nodes are available: 2 Too many pods. no new claims to deallocate, preemption: 0/2 nodes are available: 2 No preemption victims found for incoming pod.
+5m10s       Warning   FailedScheduling   pod/nginx-deployment-5995856f4f-xfcvf   0/2 nodes are available: 2 Too many pods. no new claims to deallocate, preemption: 0/2 nodes are available: 2 No preemption victims found for incoming pod.
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get nodes -o custom-columns=NAME:.metadata.name,PODS:.status.allocatable.pods
+NAME                                           PODS
+ip-192-168-29-10.ap-south-1.compute.internal   4
+ip-192-168-53-40.ap-south-1.compute.internal   4
+[ec2-user@ip-10-0-0-52 ~]$ kubectl set env daemonset aws-node -n kube-system ENABLE_PREFIX_DELEGATION=true
+daemonset.apps/aws-node env updated
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get deployment -n nginx-app
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   0/2     2            0           18m
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get deployment -n nginx-app
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   0/2     2            0           19m
+[ec2-user@ip-10-0-0-52 ~]$ kubectl rollout restart daemonset aws-node -n kube-system
+daemonset.apps/aws-node restarted
+[ec2-user@ip-10-0-0-52 ~]$ sudo systemctl restart kubelet
+Failed to restart kubelet.service: Unit kubelet.service not found.
+[ec2-user@ip-10-0-0-52 ~]$ kubectl delete pods -n kube-system -l k8s-app=aws-node
+pod "aws-node-cmswd" deleted from kube-system namespace
+pod "aws-node-tph4v" deleted from kube-system namespace
+[ec2-user@ip-10-0-0-52 ~]$ kubectl delete pods -n nginx-app -l app=nginx
+pod "nginx-deployment-5995856f4f-bdvfx" deleted from nginx-app namespace
+pod "nginx-deployment-5995856f4f-xfcvf" deleted from nginx-app namespace
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get nodes -o custom-columns=NAME:.metadata.name,PODS:.status.allocatable.pods
+NAME                                           PODS
+ip-192-168-29-10.ap-south-1.compute.internal   4
+ip-192-168-53-40.ap-south-1.compute.internal   4
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get deployment -n nginx-app
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   0/2     2            0           22m
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get deployment -n nginx-app
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   0/2     2            0           22m
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get deployment -n nginx-app
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   0/2     2            0           22m
+[ec2-user@ip-10-0-0-52 ~]$ eksctl scale nodegroup --cluster=<your-cluster-name> --name=<nodegroup-name> --nodes=4
+-bash: your-cluster-name: No such file or directory
+[ec2-user@ip-10-0-0-52 ~]$ 
+
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get all -n nginx-app
+NAME                                    READY   STATUS    RESTARTS   AGE
+pod/nginx-deployment-5995856f4f-j5b5z   1/1     Running   0          42m
+pod/nginx-deployment-5995856f4f-r4q4j   1/1     Running   0          42m
+
+NAME                    TYPE           CLUSTER-IP       EXTERNAL-IP                                                                PORT(S)        AGE
+service/nginx-service   LoadBalancer   10.100.108.194   a5c596dddbe694d90ae58fc2238ed01e-1526001676.ap-south-1.elb.amazonaws.com   80:30586/TCP   64m
+
+NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nginx-deployment   2/2     2            2           64m
+
+NAME                                          DESIRED   CURRENT   READY   AGE
+replicaset.apps/nginx-deployment-5995856f4f   2         2         2       64m
+[ec2-user@ip-10-0-0-52 ~]$ kubectl describe deployment \
+nginx-deployment -n nginx-app
+Name:                   nginx-deployment
+Namespace:              nginx-app
+CreationTimestamp:      Tue, 01 Sep 2026 13:55:44 +0000
+Labels:                 app=nginx
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=nginx
+Replicas:               2 desired | 2 updated | 2 total | 2 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=nginx
+  Containers:
+   nginx:
+    Image:      nginx:latest
+    Port:       80/TCP
+    Host Port:  0/TCP
+    Limits:
+      cpu:     500m
+      memory:  128Mi
+    Requests:
+      cpu:         250m
+      memory:      64Mi
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   nginx-deployment-5995856f4f (2/2 replicas created)
+Events:          <none>
+[ec2-user@ip-10-0-0-52 ~]$ kubectl describe service \
+nginx-service -n nginx-app
+Name:                     nginx-service
+Namespace:                nginx-app
+Labels:                   app=nginx
+Annotations:              <none>
+Selector:                 app=nginx
+Type:                     LoadBalancer
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.100.108.194
+IPs:                      10.100.108.194
+LoadBalancer Ingress:     a5c596dddbe694d90ae58fc2238ed01e-1526001676.ap-south-1.elb.amazonaws.com
+Port:                     <unset>  80/TCP
+TargetPort:               80/TCP
+NodePort:                 <unset>  30586/TCP
+Endpoints:                192.168.85.32:80,192.168.85.33:80
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Internal Traffic Policy:  Cluster
+Events:
+  Type    Reason                Age                From                Message
+  ----    ------                ----               ----                -------
+  Normal  UpdatedLoadBalancer   17m (x2 over 17m)  service-controller  Updated load balancer with new hosts
+  Normal  EnsuringLoadBalancer  4m7s               service-controller  Ensuring load balancer
+  Normal  EnsuredLoadBalancer   4m6s               service-controller  Ensured load balancer
+  Normal  EnsuringLoadBalancer  44s                service-controller  Ensuring load balancer
+  Normal  EnsuredLoadBalancer   43s                service-controller  Ensured load balancer
+[ec2-user@ip-10-0-0-52 ~]$ kubectl logs \
+-l app=nginx \
+-n nginx-app
+2026/09/01 14:49:24 [error] 30#30: *53 open() "/usr/share/nginx/html/robots.txt" failed (2: No such file or directory), client: 192.168.93.178, server: localhost, request: "GET /robots.txt HTTP/1.1", host: "35.154.122.157"
+192.168.15.222 - - [01/Sep/2026:14:54:38 +0000] "GET / HTTP/1.1" 200 896 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36" "-"
+2026/09/01 14:54:38 [error] 30#30: *124 open() "/usr/share/nginx/html/favicon.ico" failed (2: No such file or directory), client: 192.168.15.222, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "a5c596dddbe694d90ae58fc2238ed01e-1526001676.ap-south-1.elb.amazonaws.com", referrer: "http://a5c596dddbe694d90ae58fc2238ed01e-1526001676.ap-south-1.elb.amazonaws.com/"
+192.168.15.222 - - [01/Sep/2026:14:54:38 +0000] "GET /favicon.ico HTTP/1.1" 404 555 "http://a5c596dddbe694d90ae58fc2238ed01e-1526001676.ap-south-1.elb.amazonaws.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36" "-"
+192.168.93.178 - - [01/Sep/2026:14:59:10 +0000] "\xFF\x00\x00\x00\x00\x00\x00\x00\x00\x7F\x03\x01NULL\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00" 400 157 "-" "-" "-"
+192.168.93.178 - - [01/Sep/2026:14:59:11 +0000] "\xFF\x00\x00\x00\x00\x00\x00\x00\x00\x7F\x03\x01NULL\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00" 400 157 "-" "-" "-"
+2026/09/01 14:59:23 [error] 29#29: *167 open() "/usr/share/nginx/html/version" failed (2: No such file or directory), client: 192.168.93.178, server: localhost, request: "GET /version HTTP/1.1", host: "35.154.122.157:80"
+192.168.93.178 - - [01/Sep/2026:14:59:23 +0000] "GET /version HTTP/1.1" 404 153 "-" "-" "-"
+192.168.93.178 - - [01/Sep/2026:14:59:23 +0000] "GET / HTTP/1.1" 200 896 "-" "-" "-"
+192.168.93.178 - - [01/Sep/2026:14:59:25 +0000] "GET / HTTP/1.1" 200 896 "-" "-" "-"
+2026/09/01 14:44:17 [notice] 1#1: start worker process 30
+192.168.93.178 - - [01/Sep/2026:14:51:34 +0000] "GET /.env HTTP/1.1" 404 555 "-" "Mozilla/5.0 (Ubuntu; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" "-"
+2026/09/01 14:51:34 [error] 30#30: *95 open() "/usr/share/nginx/html/.env" failed (2: No such file or directory), client: 192.168.93.178, server: localhost, request: "GET /.env HTTP/1.1", host: "35.154.122.157"
+192.168.93.178 - - [01/Sep/2026:14:59:14 +0000] "\xFF\x00\x00\x00\x00\x00\x00\x00\x00\x7F\x03\x01NULL\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00" 400 157 "-" "-" "-"
+192.168.93.178 - - [01/Sep/2026:14:59:24 +0000] "GET / HTTP/1.1" 200 896 "-" "-" "-"
+2026/09/01 14:59:24 [error] 29#29: *208 open() "/usr/share/nginx/html/v1" failed (2: No such file or directory), client: 192.168.93.178, server: localhost, request: "GET /v1 HTTP/1.1", host: "35.154.122.157:80"
+192.168.93.178 - - [01/Sep/2026:14:59:24 +0000] "GET /v1 HTTP/1.1" 404 153 "-" "-" "-"
+192.168.93.178 - - [01/Sep/2026:14:59:25 +0000] "GET / HTTP/1.1" 200 896 "-" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36" "-"
+2026/09/01 14:59:26 [error] 29#29: *210 open() "/usr/share/nginx/html/favicon.ico" failed (2: No such file or directory), client: 192.168.93.178, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "35.154.122.157:80", referrer: "http://35.154.122.157:80"
+192.168.93.178 - - [01/Sep/2026:14:59:26 +0000] "GET /favicon.ico HTTP/1.1" 404 555 "http://35.154.122.157:80" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36" "-"
+[ec2-user@ip-10-0-0-52 ~]$ kubectl scale deployment \
+nginx-deployment \
+--replicas=3 \
+-n nginx-app
+deployment.apps/nginx-deployment scaled
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get pods -n nginx-app
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-5995856f4f-j5b5z   1/1     Running   0          44m
+nginx-deployment-5995856f4f-mmcvt   1/1     Running   0          12s
+nginx-deployment-5995856f4f-r4q4j   1/1     Running   0          44m
+[ec2-user@ip-10-0-0-52 ~]$ kubectl cluster-info
+Kubernetes control plane is running at https://84DE2ABA03089D2EC80C5CC2A3555AE4.gr7.ap-south-1.eks.amazonaws.com
+CoreDNS is running at https://84DE2ABA03089D2EC80C5CC2A3555AE4.gr7.ap-south-1.eks.amazonaws.com/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+[ec2-user@ip-10-0-0-52 ~]$ kubectl get nodes -o wide
+NAME                                            STATUS   ROLES    AGE   VERSION                INTERNAL-IP      EXTERNAL-IP      OS-IMAGE                        KERNEL-VERSION                     CONTAINER-RUNTIME
+ip-192-168-15-222.ap-south-1.compute.internal   Ready    <none>   18m   v1.34.10-eks-cb19647   192.168.15.222   13.207.49.105    Amazon Linux 2023.12.20260817   6.12.100-125.179.amzn2023.x86_64   containerd://2.2.5+unknown
+ip-192-168-29-10.ap-south-1.compute.internal    Ready    <none>   74m   v1.34.10-eks-cb19647   192.168.29.10    13.202.78.208    Amazon Linux 2023.12.20260817   6.12.100-125.179.amzn2023.x86_64   containerd://2.2.5+unknown
+ip-192-168-53-40.ap-south-1.compute.internal    Ready    <none>   74m   v1.34.10-eks-cb19647   192.168.53.40    13.200.222.211   Amazon Linux 2023.12.20260817   6.12.100-125.179.amzn2023.x86_64   containerd://2.2.5+unknown
+ip-192-168-93-178.ap-south-1.compute.internal   Ready    <none>   18m   v1.34.10-eks-cb19647   192.168.93.178   3.110.187.77     Amazon Linux 2023.12.20260817   6.12.100-125.179.amzn2023.x86_64   containerd://2.2.5+unknown
+[ec2-user@ip-10-0-0-52 ~]$ 
