@@ -1,0 +1,50 @@
+Started by user Aswini B
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/My-Pipeline
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Start)
+[Pipeline] echo
+Pipeline Started!!
+[Pipeline] echo
+By Aswini B
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] echo
+Building the application!!
+[Pipeline] sh
++ echo Build 'completed!!'
+Build completed!!
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] echo
+Running tests!!
+[Pipeline] sh
++ echo All tests 'passed!!'
+All tests passed!!
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] echo
+Deploying application!!
+[Pipeline] sh
++ echo Deployment 'successful!!'
+Deployment successful!!
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+Pipeline completed successfully!!
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
