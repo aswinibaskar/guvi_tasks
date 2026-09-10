@@ -1,0 +1,793 @@
+[ec2-user@ip-172-31-80-177 terraform-multiregion]$ aws ec2 describe-instances \
+--region ap-south-1 \
+--filters "Name=tag:Name,\
+Values=aswini-mumbai-ec2" \
+--query "Reservations[*].\
+Instances[*].[InstanceId,\
+PublicIpAddress,State.Name]" \
+--output table
+-----------------------------------------------------
+|                 DescribeInstances                 |
++----------------------+-----------------+----------+
+|  i-0073db507c1fb1cfe |  13.203.219.38  |  running |
++----------------------+-----------------+----------+
+[ec2-user@ip-172-31-80-177 terraform-multiregion]$ aws ec2 describe-instances \
+--region us-east-1 \
+--filters "Name=tag:Name,\
+Values=aswini-virginia-ec2" \
+--query "Reservations[*].\
+Instances[*].[InstanceId,\
+PublicIpAddress,State.Name]" \
+--output table
+------------------------------------------------------
+|                  DescribeInstances                 |
++----------------------+------------------+----------+
+|  i-02d8120483678a9dd |  54.173.156.117  |  running |
++----------------------+------------------+----------+
+[ec2-user@ip-172-31-80-177 terraform-multiregion]$ terraform show
+# data.aws_ami.amazon_linux_mumbai:
+data "aws_ami" "amazon_linux_mumbai" {
+    architecture          = "x86_64"
+    arn                   = "arn:aws:ec2:ap-south-1::image/ami-0a61d334ad584957f"
+    block_device_mappings = [
+        {
+            device_name  = "/dev/xvda"
+            ebs          = {
+                "delete_on_termination"      = "true"
+                "encrypted"                  = "false"
+                "iops"                       = "3000"
+                "snapshot_id"                = "snap-0e72eb28a1c81e9a2"
+                "throughput"                 = "125"
+                "volume_initialization_rate" = "0"
+                "volume_size"                = "2"
+                "volume_type"                = "gp3"
+            }
+            no_device    = null
+            virtual_name = null
+        },
+    ]
+    boot_mode             = "uefi-preferred"
+    creation_date         = "2026-09-09T19:30:33.000Z"
+    deprecation_time      = "2026-12-08T19:32:00.000Z"
+    description           = "Amazon Linux 2023 AMI 2023.12.20260909.0 x86_64 Minimal HVM kernel-6.18"
+    ena_support           = true
+    hypervisor            = "xen"
+    id                    = "ami-0a61d334ad584957f"
+    image_id              = "ami-0a61d334ad584957f"
+    image_location        = "amazon/al2023-ami-minimal-2023.12.20260909.0-kernel-6.18-x86_64"
+    image_owner_alias     = "amazon"
+    image_type            = "machine"
+    imds_support          = "v2.0"
+    include_deprecated    = false
+    kernel_id             = null
+    last_launched_time    = null
+    most_recent           = true
+    name                  = "al2023-ami-minimal-2023.12.20260909.0-kernel-6.18-x86_64"
+    owner_id              = "137112412989"
+    owners                = [
+        "amazon",
+    ]
+    platform              = null
+    platform_details      = "Linux/UNIX"
+    product_codes         = []
+    public                = true
+    ramdisk_id            = null
+    root_device_name      = "/dev/xvda"
+    root_device_type      = "ebs"
+    root_snapshot_id      = "snap-0e72eb28a1c81e9a2"
+    sriov_net_support     = "simple"
+    state                 = "available"
+    state_reason          = {
+        "code"    = "UNSET"
+        "message" = "UNSET"
+    }
+    tags                  = {}
+    tpm_support           = null
+    usage_operation       = "RunInstances"
+    virtualization_type   = "hvm"
+
+    filter {
+        name   = "name"
+        values = [
+            "al2023-ami-*-x86_64",
+        ]
+    }
+    filter {
+        name   = "virtualization-type"
+        values = [
+            "hvm",
+        ]
+    }
+}
+
+# data.aws_ami.amazon_linux_virginia:
+data "aws_ami" "amazon_linux_virginia" {
+    architecture          = "x86_64"
+    arn                   = "arn:aws:ec2:us-east-1::image/ami-085b153e241f89f29"
+    block_device_mappings = [
+        {
+            device_name  = "/dev/xvda"
+            ebs          = {
+                "delete_on_termination"      = "true"
+                "encrypted"                  = "false"
+                "iops"                       = "3000"
+                "snapshot_id"                = "snap-0e2f565e54672b36d"
+                "throughput"                 = "125"
+                "volume_initialization_rate" = "0"
+                "volume_size"                = "2"
+                "volume_type"                = "gp3"
+            }
+            no_device    = null
+            virtual_name = null
+        },
+    ]
+    boot_mode             = "uefi-preferred"
+    creation_date         = "2026-09-09T19:30:15.000Z"
+    deprecation_time      = "2026-12-08T19:32:00.000Z"
+    description           = "Amazon Linux 2023 AMI 2023.12.20260909.0 x86_64 Minimal HVM kernel-6.18"
+    ena_support           = true
+    hypervisor            = "xen"
+    id                    = "ami-085b153e241f89f29"
+    image_id              = "ami-085b153e241f89f29"
+    image_location        = "amazon/al2023-ami-minimal-2023.12.20260909.0-kernel-6.18-x86_64"
+    image_owner_alias     = "amazon"
+    image_type            = "machine"
+    imds_support          = "v2.0"
+    include_deprecated    = false
+    kernel_id             = null
+    last_launched_time    = null
+    most_recent           = true
+    name                  = "al2023-ami-minimal-2023.12.20260909.0-kernel-6.18-x86_64"
+    owner_id              = "137112412989"
+    owners                = [
+        "amazon",
+    ]
+    platform              = null
+    platform_details      = "Linux/UNIX"
+    product_codes         = []
+    public                = true
+    ramdisk_id            = null
+    root_device_name      = "/dev/xvda"
+    root_device_type      = "ebs"
+    root_snapshot_id      = "snap-0e2f565e54672b36d"
+    sriov_net_support     = "simple"
+    state                 = "available"
+    state_reason          = {
+        "code"    = "UNSET"
+        "message" = "UNSET"
+    }
+    tags                  = {}
+    tpm_support           = null
+    usage_operation       = "RunInstances"
+    virtualization_type   = "hvm"
+
+    filter {
+        name   = "name"
+        values = [
+            "al2023-ami-*-x86_64",
+        ]
+    }
+    filter {
+        name   = "virtualization-type"
+        values = [
+            "hvm",
+        ]
+    }
+}
+
+# aws_instance.mumbai_ec2:
+resource "aws_instance" "mumbai_ec2" {
+    ami                                  = "ami-0a61d334ad584957f"
+    arn                                  = "arn:aws:ec2:ap-south-1:011528274354:instance/i-0073db507c1fb1cfe"
+    associate_public_ip_address          = true
+    availability_zone                    = "ap-south-1b"
+    cpu_core_count                       = 1
+    cpu_threads_per_core                 = 1
+    disable_api_stop                     = false
+    disable_api_termination              = false
+    ebs_optimized                        = false
+    get_password_data                    = false
+    hibernation                          = false
+    host_id                              = null
+    iam_instance_profile                 = null
+    id                                   = "i-0073db507c1fb1cfe"
+    instance_initiated_shutdown_behavior = "stop"
+    instance_lifecycle                   = null
+    instance_state                       = "running"
+    instance_type                        = "t2.micro"
+    ipv6_address_count                   = 0
+    ipv6_addresses                       = []
+    key_name                             = null
+    monitoring                           = false
+    outpost_arn                          = null
+    password_data                        = null
+    placement_group                      = null
+    placement_partition_number           = 0
+    primary_network_interface_id         = "eni-05237ddae02311a9a"
+    private_dns                          = "ip-172-31-6-158.ap-south-1.compute.internal"
+    private_ip                           = "172.31.6.158"
+    public_dns                           = "ec2-13-203-219-38.ap-south-1.compute.amazonaws.com"
+    public_ip                            = "13.203.219.38"
+    secondary_private_ips                = []
+    security_groups                      = [
+        "aswini-mumbai-sg",
+    ]
+    source_dest_check                    = true
+    spot_instance_request_id             = null
+    subnet_id                            = "subnet-06e1ef06b25fa0a1a"
+    tags                                 = {
+        "CreatedBy"   = "Aswini B"
+        "Environment" = "dev"
+        "Name"        = "aswini-mumbai-ec2"
+        "Region"      = "ap-south-1"
+        "Tool"        = "Terraform"
+    }
+    tags_all                             = {
+        "CreatedBy"   = "Aswini B"
+        "Environment" = "dev"
+        "Name"        = "aswini-mumbai-ec2"
+        "Region"      = "ap-south-1"
+        "Tool"        = "Terraform"
+    }
+    tenancy                              = "default"
+    user_data                            = "c9aae8fb6c79afc23fa7efc25be018cc273929b2"
+    user_data_replace_on_change          = false
+    vpc_security_group_ids               = [
+        "sg-0708cfcede1348395",
+    ]
+
+    capacity_reservation_specification {
+        capacity_reservation_preference = "open"
+    }
+
+    cpu_options {
+        amd_sev_snp      = null
+        core_count       = 1
+        threads_per_core = 1
+    }
+
+    credit_specification {
+        cpu_credits = "standard"
+    }
+
+    enclave_options {
+        enabled = false
+    }
+
+    maintenance_options {
+        auto_recovery = "default"
+    }
+
+    metadata_options {
+        http_endpoint               = "enabled"
+        http_protocol_ipv6          = "disabled"
+        http_put_response_hop_limit = 2
+        http_tokens                 = "required"
+        instance_metadata_tags      = "disabled"
+    }
+
+    private_dns_name_options {
+        enable_resource_name_dns_a_record    = false
+        enable_resource_name_dns_aaaa_record = false
+        hostname_type                        = "ip-name"
+    }
+
+    root_block_device {
+        delete_on_termination = true
+        device_name           = "/dev/xvda"
+        encrypted             = false
+        iops                  = 3000
+        kms_key_id            = null
+        tags                  = {}
+        tags_all              = {}
+        throughput            = 125
+        volume_id             = "vol-08bee422f258a3d86"
+        volume_size           = 2
+        volume_type           = "gp3"
+    }
+}
+
+# aws_instance.virginia_ec2:
+resource "aws_instance" "virginia_ec2" {
+    ami                                  = "ami-085b153e241f89f29"
+    arn                                  = "arn:aws:ec2:us-east-1:011528274354:instance/i-02d8120483678a9dd"
+    associate_public_ip_address          = true
+    availability_zone                    = "us-east-1b"
+    cpu_core_count                       = 1
+    cpu_threads_per_core                 = 1
+    disable_api_stop                     = false
+    disable_api_termination              = false
+    ebs_optimized                        = false
+    get_password_data                    = false
+    hibernation                          = false
+    host_id                              = null
+    iam_instance_profile                 = null
+    id                                   = "i-02d8120483678a9dd"
+    instance_initiated_shutdown_behavior = "stop"
+    instance_lifecycle                   = null
+    instance_state                       = "running"
+    instance_type                        = "t2.micro"
+    ipv6_address_count                   = 0
+    ipv6_addresses                       = []
+    key_name                             = null
+    monitoring                           = false
+    outpost_arn                          = null
+    password_data                        = null
+    placement_group                      = null
+    placement_partition_number           = 0
+    primary_network_interface_id         = "eni-0db8f48be934d056d"
+    private_dns                          = "ip-172-31-92-65.ec2.internal"
+    private_ip                           = "172.31.92.65"
+    public_dns                           = "ec2-54-173-156-117.compute-1.amazonaws.com"
+    public_ip                            = "54.173.156.117"
+    secondary_private_ips                = []
+    security_groups                      = [
+        "aswini-virginia-sg",
+    ]
+    source_dest_check                    = true
+    spot_instance_request_id             = null
+    subnet_id                            = "subnet-07e0221e018fc353c"
+    tags                                 = {
+        "CreatedBy"   = "Aswini B"
+        "Environment" = "dev"
+        "Name"        = "aswini-virginia-ec2"
+        "Region"      = "us-east-1"
+        "Tool"        = "Terraform"
+    }
+    tags_all                             = {
+        "CreatedBy"   = "Aswini B"
+        "Environment" = "dev"
+        "Name"        = "aswini-virginia-ec2"
+        "Region"      = "us-east-1"
+        "Tool"        = "Terraform"
+    }
+    tenancy                              = "default"
+    user_data                            = "b30751cc953a4a116d8f8855b61fb3b6e9a93ea7"
+    user_data_replace_on_change          = false
+    vpc_security_group_ids               = [
+        "sg-05d71b179f873a7c9",
+    ]
+
+    capacity_reservation_specification {
+        capacity_reservation_preference = "open"
+    }
+
+    cpu_options {
+        amd_sev_snp      = null
+        core_count       = 1
+        threads_per_core = 1
+    }
+
+    credit_specification {
+        cpu_credits = "standard"
+    }
+
+    enclave_options {
+        enabled = false
+    }
+
+    maintenance_options {
+        auto_recovery = "default"
+    }
+
+    metadata_options {
+        http_endpoint               = "enabled"
+        http_protocol_ipv6          = "disabled"
+        http_put_response_hop_limit = 2
+        http_tokens                 = "required"
+        instance_metadata_tags      = "disabled"
+    }
+
+    private_dns_name_options {
+        enable_resource_name_dns_a_record    = false
+        enable_resource_name_dns_aaaa_record = false
+        hostname_type                        = "ip-name"
+    }
+
+    root_block_device {
+        delete_on_termination = true
+        device_name           = "/dev/xvda"
+        encrypted             = false
+        iops                  = 3000
+        kms_key_id            = null
+        tags                  = {}
+        tags_all              = {}
+        throughput            = 125
+        volume_id             = "vol-0db9056593be335e3"
+        volume_size           = 2
+        volume_type           = "gp3"
+    }
+}
+
+# aws_security_group.mumbai_sg:
+resource "aws_security_group" "mumbai_sg" {
+    arn                    = "arn:aws:ec2:ap-south-1:011528274354:security-group/sg-0708cfcede1348395"
+    description            = "Security group for Mumbai EC2"
+    egress                 = [
+        {
+            cidr_blocks      = [
+                "0.0.0.0/0",
+            ]
+            description      = null
+            from_port        = 0
+            ipv6_cidr_blocks = []
+            prefix_list_ids  = []
+            protocol         = "-1"
+            security_groups  = []
+            self             = false
+            to_port          = 0
+        },
+    ]
+    id                     = "sg-0708cfcede1348395"
+    ingress                = [
+        {
+            cidr_blocks      = [
+                "0.0.0.0/0",
+            ]
+            description      = "HTTP access"
+            from_port        = 80
+            ipv6_cidr_blocks = []
+            prefix_list_ids  = []
+            protocol         = "tcp"
+            security_groups  = []
+            self             = false
+            to_port          = 80
+        },
+        {
+            cidr_blocks      = [
+                "0.0.0.0/0",
+            ]
+            description      = "SSH access"
+            from_port        = 22
+            ipv6_cidr_blocks = []
+            prefix_list_ids  = []
+            protocol         = "tcp"
+            security_groups  = []
+            self             = false
+            to_port          = 22
+        },
+    ]
+    name                   = "aswini-mumbai-sg"
+    name_prefix            = null
+    owner_id               = "011528274354"
+    revoke_rules_on_delete = false
+    tags                   = {
+        "CreatedBy" = "Aswini B"
+        "Name"      = "aswini-mumbai-sg"
+        "Region"    = "ap-south-1"
+    }
+    tags_all               = {
+        "CreatedBy" = "Aswini B"
+        "Name"      = "aswini-mumbai-sg"
+        "Region"    = "ap-south-1"
+    }
+    vpc_id                 = "vpc-0ee7acbf7a690a7d8"
+}
+
+# aws_security_group.virginia_sg:
+resource "aws_security_group" "virginia_sg" {
+    arn                    = "arn:aws:ec2:us-east-1:011528274354:security-group/sg-05d71b179f873a7c9"
+    description            = "Security group for Virginia EC2"
+    egress                 = [
+        {
+            cidr_blocks      = [
+                "0.0.0.0/0",
+            ]
+            description      = null
+            from_port        = 0
+            ipv6_cidr_blocks = []
+            prefix_list_ids  = []
+            protocol         = "-1"
+            security_groups  = []
+            self             = false
+            to_port          = 0
+        },
+    ]
+    id                     = "sg-05d71b179f873a7c9"
+    ingress                = [
+        {
+            cidr_blocks      = [
+                "0.0.0.0/0",
+            ]
+            description      = "HTTP access"
+            from_port        = 80
+            ipv6_cidr_blocks = []
+            prefix_list_ids  = []
+            protocol         = "tcp"
+            security_groups  = []
+            self             = false
+            to_port          = 80
+        },
+        {
+            cidr_blocks      = [
+                "0.0.0.0/0",
+            ]
+            description      = "SSH access"
+            from_port        = 22
+            ipv6_cidr_blocks = []
+            prefix_list_ids  = []
+            protocol         = "tcp"
+            security_groups  = []
+            self             = false
+            to_port          = 22
+        },
+    ]
+    name                   = "aswini-virginia-sg"
+    name_prefix            = null
+    owner_id               = "011528274354"
+    revoke_rules_on_delete = false
+    tags                   = {
+        "CreatedBy" = "Aswini B"
+        "Name"      = "aswini-virginia-sg"
+        "Region"    = "us-east-1"
+    }
+    tags_all               = {
+        "CreatedBy" = "Aswini B"
+        "Name"      = "aswini-virginia-sg"
+        "Region"    = "us-east-1"
+    }
+    vpc_id                 = "vpc-02031f598fa078887"
+}
+
+
+Outputs:
+
+mumbai_instance_id = "i-0073db507c1fb1cfe"
+mumbai_public_ip = "13.203.219.38"
+mumbai_region = "ap-south-1"
+virginia_instance_id = "i-02d8120483678a9dd"
+virginia_public_ip = "54.173.156.117"
+virginia_region = "us-east-1"
+[ec2-user@ip-172-31-80-177 terraform-multiregion]$ terraform state list
+data.aws_ami.amazon_linux_mumbai
+data.aws_ami.amazon_linux_virginia
+aws_instance.mumbai_ec2
+aws_instance.virginia_ec2
+aws_security_group.mumbai_sg
+aws_security_group.virginia_sg
+[ec2-user@ip-172-31-80-177 terraform-multiregion]$ terraform state show \
+aws_instance.mumbai_ec2
+# aws_instance.mumbai_ec2:
+resource "aws_instance" "mumbai_ec2" {
+    ami                                  = "ami-0a61d334ad584957f"
+    arn                                  = "arn:aws:ec2:ap-south-1:011528274354:instance/i-0073db507c1fb1cfe"
+    associate_public_ip_address          = true
+    availability_zone                    = "ap-south-1b"
+    cpu_core_count                       = 1
+    cpu_threads_per_core                 = 1
+    disable_api_stop                     = false
+    disable_api_termination              = false
+    ebs_optimized                        = false
+    get_password_data                    = false
+    hibernation                          = false
+    host_id                              = null
+    iam_instance_profile                 = null
+    id                                   = "i-0073db507c1fb1cfe"
+    instance_initiated_shutdown_behavior = "stop"
+    instance_lifecycle                   = null
+    instance_state                       = "running"
+    instance_type                        = "t2.micro"
+    ipv6_address_count                   = 0
+    ipv6_addresses                       = []
+    key_name                             = null
+    monitoring                           = false
+    outpost_arn                          = null
+    password_data                        = null
+    placement_group                      = null
+    placement_partition_number           = 0
+    primary_network_interface_id         = "eni-05237ddae02311a9a"
+    private_dns                          = "ip-172-31-6-158.ap-south-1.compute.internal"
+    private_ip                           = "172.31.6.158"
+    public_dns                           = "ec2-13-203-219-38.ap-south-1.compute.amazonaws.com"
+    public_ip                            = "13.203.219.38"
+    secondary_private_ips                = []
+    security_groups                      = [
+        "aswini-mumbai-sg",
+    ]
+    source_dest_check                    = true
+    spot_instance_request_id             = null
+    subnet_id                            = "subnet-06e1ef06b25fa0a1a"
+    tags                                 = {
+        "CreatedBy"   = "Aswini B"
+        "Environment" = "dev"
+        "Name"        = "aswini-mumbai-ec2"
+        "Region"      = "ap-south-1"
+        "Tool"        = "Terraform"
+    }
+    tags_all                             = {
+        "CreatedBy"   = "Aswini B"
+        "Environment" = "dev"
+        "Name"        = "aswini-mumbai-ec2"
+        "Region"      = "ap-south-1"
+        "Tool"        = "Terraform"
+    }
+    tenancy                              = "default"
+    user_data                            = "c9aae8fb6c79afc23fa7efc25be018cc273929b2"
+    user_data_replace_on_change          = false
+    vpc_security_group_ids               = [
+        "sg-0708cfcede1348395",
+    ]
+
+    capacity_reservation_specification {
+        capacity_reservation_preference = "open"
+    }
+
+    cpu_options {
+        amd_sev_snp      = null
+        core_count       = 1
+        threads_per_core = 1
+    }
+
+    credit_specification {
+        cpu_credits = "standard"
+    }
+
+    enclave_options {
+        enabled = false
+    }
+
+    maintenance_options {
+        auto_recovery = "default"
+    }
+
+    metadata_options {
+        http_endpoint               = "enabled"
+        http_protocol_ipv6          = "disabled"
+        http_put_response_hop_limit = 2
+        http_tokens                 = "required"
+        instance_metadata_tags      = "disabled"
+    }
+
+    private_dns_name_options {
+        enable_resource_name_dns_a_record    = false
+        enable_resource_name_dns_aaaa_record = false
+        hostname_type                        = "ip-name"
+    }
+
+    root_block_device {
+        delete_on_termination = true
+        device_name           = "/dev/xvda"
+        encrypted             = false
+        iops                  = 3000
+        kms_key_id            = null
+        tags                  = {}
+        tags_all              = {}
+        throughput            = 125
+        volume_id             = "vol-08bee422f258a3d86"
+        volume_size           = 2
+        volume_type           = "gp3"
+    }
+}
+[ec2-user@ip-172-31-80-177 terraform-multiregion]$ terraform state show \
+aws_instance.virginia_ec2
+# aws_instance.virginia_ec2:
+resource "aws_instance" "virginia_ec2" {
+    ami                                  = "ami-085b153e241f89f29"
+    arn                                  = "arn:aws:ec2:us-east-1:011528274354:instance/i-02d8120483678a9dd"
+    associate_public_ip_address          = true
+    availability_zone                    = "us-east-1b"
+    cpu_core_count                       = 1
+    cpu_threads_per_core                 = 1
+    disable_api_stop                     = false
+    disable_api_termination              = false
+    ebs_optimized                        = false
+    get_password_data                    = false
+    hibernation                          = false
+    host_id                              = null
+    iam_instance_profile                 = null
+    id                                   = "i-02d8120483678a9dd"
+    instance_initiated_shutdown_behavior = "stop"
+    instance_lifecycle                   = null
+    instance_state                       = "running"
+    instance_type                        = "t2.micro"
+    ipv6_address_count                   = 0
+    ipv6_addresses                       = []
+    key_name                             = null
+    monitoring                           = false
+    outpost_arn                          = null
+    password_data                        = null
+    placement_group                      = null
+    placement_partition_number           = 0
+    primary_network_interface_id         = "eni-0db8f48be934d056d"
+    private_dns                          = "ip-172-31-92-65.ec2.internal"
+    private_ip                           = "172.31.92.65"
+    public_dns                           = "ec2-54-173-156-117.compute-1.amazonaws.com"
+    public_ip                            = "54.173.156.117"
+    secondary_private_ips                = []
+    security_groups                      = [
+        "aswini-virginia-sg",
+    ]
+    source_dest_check                    = true
+    spot_instance_request_id             = null
+    subnet_id                            = "subnet-07e0221e018fc353c"
+    tags                                 = {
+        "CreatedBy"   = "Aswini B"
+        "Environment" = "dev"
+        "Name"        = "aswini-virginia-ec2"
+        "Region"      = "us-east-1"
+        "Tool"        = "Terraform"
+    }
+    tags_all                             = {
+        "CreatedBy"   = "Aswini B"
+        "Environment" = "dev"
+        "Name"        = "aswini-virginia-ec2"
+        "Region"      = "us-east-1"
+        "Tool"        = "Terraform"
+    }
+    tenancy                              = "default"
+    user_data                            = "b30751cc953a4a116d8f8855b61fb3b6e9a93ea7"
+    user_data_replace_on_change          = false
+    vpc_security_group_ids               = [
+        "sg-05d71b179f873a7c9",
+    ]
+
+    capacity_reservation_specification {
+        capacity_reservation_preference = "open"
+    }
+
+    cpu_options {
+        amd_sev_snp      = null
+        core_count       = 1
+        threads_per_core = 1
+    }
+
+    credit_specification {
+        cpu_credits = "standard"
+    }
+
+    enclave_options {
+        enabled = false
+    }
+
+    maintenance_options {
+        auto_recovery = "default"
+    }
+
+    metadata_options {
+        http_endpoint               = "enabled"
+        http_protocol_ipv6          = "disabled"
+        http_put_response_hop_limit = 2
+        http_tokens                 = "required"
+        instance_metadata_tags      = "disabled"
+    }
+
+    private_dns_name_options {
+        enable_resource_name_dns_a_record    = false
+        enable_resource_name_dns_aaaa_record = false
+        hostname_type                        = "ip-name"
+    }
+
+    root_block_device {
+        delete_on_termination = true
+        device_name           = "/dev/xvda"
+        encrypted             = false
+        iops                  = 3000
+        kms_key_id            = null
+        tags                  = {}
+        tags_all              = {}
+        throughput            = 125
+        volume_id             = "vol-0db9056593be335e3"
+        volume_size           = 2
+        volume_type           = "gp3"
+    }
+}
+[ec2-user@ip-172-31-80-177 terraform-multiregion]$ terraform output
+mumbai_instance_id = "i-0073db507c1fb1cfe"
+mumbai_public_ip = "13.203.219.38"
+mumbai_region = "ap-south-1"
+virginia_instance_id = "i-02d8120483678a9dd"
+virginia_public_ip = "54.173.156.117"
+virginia_region = "us-east-1"
+[ec2-user@ip-172-31-80-177 terraform-multiregion]$ terraform output mumbai_public_ip
+terraform output virginia_public_ip
+"13.203.219.38"
+"54.173.156.117"
+[ec2-user@ip-172-31-80-177 terraform-multiregion]$ curl http://13.203.219.38
+<h1>Hello from Mumbai Region!!</h1>
+<p>Deployed by Aswini B using Terraform</p>
+<p>Region: ap-south-1 (Mumbai)</p>
+[ec2-user@ip-172-31-80-177 terraform-multiregion]$ curl http://54.173.156.117
+<h1>Hello from Virginia Region!!</h1>
+<p>Deployed by Aswini B using Terraform</p>
+<p>Region: us-east-1 (N. Virginia)</p>
+[ec2-user@ip-172-31-80-177 terraform-multiregion]$ 
